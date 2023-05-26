@@ -5,15 +5,10 @@
 ## Table of Contents
 
 <!-- TOC -->
-* [Terraform Cloud Workspace `workspaces`](#terraform-cloud-workspace-workspaces)
+* [Tooling](#tooling)
   * [Table of Contents](#table-of-contents)
   * [Requirements](#requirements)
-  * [Diagrams](#diagrams)
-    * [Terraform Cloud Workspace Structure](#terraform-cloud-workspace-structure)
   * [Usage](#usage)
-    * [Inputs](#inputs)
-    * [Outputs](#outputs)
-  * [Notes](#notes)
   * [Author Information](#author-information)
   * [License](#license)
 <!-- TOC -->
