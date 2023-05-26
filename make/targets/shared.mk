@@ -1,5 +1,5 @@
 .SILENT .PHONY: help
-help: # display a list of Make Targets [Usage `make help`]
+help: # display a list of Make Targets [Usage: `make help`]
 	echo
 	echo "$(STYLE_BOLD)$(TITLE)$(STYLE_BOLD)"
 	echo
