@@ -17,14 +17,14 @@ help: # display a list of Make Targets [Usage: `make help`]
   	} \
   	/^[a-z0-9_-]+:.*#[^[]*\[Usage: `[^`]*`]/ \
   	{ \
-  		match($$0, /^[a-z0-9_-]+/); \
-  		target = substr($$0, RSTART, RLENGTH); \
+			match($$0, /^[a-z0-9_-]+/); \
+			target = substr($$0, RSTART, RLENGTH); \
   		\
-  		match($$0, /#[[:space:]]([^[]*)\[/); \
-  		description = substr($$0, RSTART + 2, RLENGTH - 3); \
+			match($$0, /#[[:space:]]([^[]*)\[/); \
+			description = substr($$0, RSTART + 2, RLENGTH - 3); \
   		\
-  		match($$0, /`([^`]*)`/); \
-  		usage = substr($$0, RSTART + 1, RLENGTH - 2); \
+			match($$0, /`([^`]*)`/); \
+			usage = substr($$0, RSTART + 1, RLENGTH - 2); \
   		\
   		printf "$(STYLE_GROUP_TARGET)%s$(STYLE_RESET); ", target; \
   		printf "%s; ", description; \

@@ -53,17 +53,17 @@ get-gh-rate-limit: # get GitHub API rate limit status [Usage: `make get-gh-rate-
 			"/rate_limit" \
 	| \
 	jq \
-  	--raw-output \
-  	'.rate.remaining, .rate.limit' \
+  		--raw-output \
+  		'.rate.remaining, .rate.limit' \
 	| \
   awk ' \
   	{ \
-  			if (NR == 1) { \
-  				LIMIT = ($$0 > 0) ? "$(STYLE_FG_GREEN)" : "$(STYLE_FG_RED)";\
-  				printf "remaining: %s%d$(STYLE_RESET) / ", LIMIT, $$0 \
-				} \
-  			\
-  			else { print $$0 } \
+		if (NR == 1) { \
+			LIMIT = ($$0 > 0) ? "$(STYLE_FG_GREEN)" : "$(STYLE_FG_RED)";\
+			printf "remaining: %s%d$(STYLE_RESET) / ", LIMIT, $$0 \
+		} \
+		\
+		else { print $$0 } \
 		} \
 	'
 	echo
