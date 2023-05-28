@@ -18,6 +18,7 @@
 
 * `make` `3.8.0` or newer
 * `terraform-docs` `0.16.0` or [newer](https://terraform-docs.io/user-guide/installation/)
+* 1Password CLI `2.0.0` or [newer](https://1password.com/downloads/command-line/)
 * GitHub CLI `2.29.0` or [newer](https://cli.github.com/)
 * OpenSSF Scorecard CLI `4.10.5` or [newer](https://github.com/ossf/scorecard#scorecard-command-line-interface)
 
@@ -35,12 +36,12 @@ init                initialize and upgrade code for all workspaces       `make i
 lint                format, validate, and lint code in all workspaces    `make lint`
 docs                generate documentation for all workspaces            `make docs`
 pull                pull latest changes for all repositories             `make pull`
-scorecards          generate OpenSSF Scorecards                          `make scorecards`
-delete-gha-logs     delete GitHub Actions Logs for all repositories      `make delete-gha-logs`
+scorecards          generate OpenSSF Scorecards                          `make scorecards target=<repository>`
+delete-gha-logs     delete GitHub Actions Logs for all repositories      `make delete-gha-logs target=<repository>`
 get-gh-rate-limit   get GitHub API rate limit status                     `make get-gh-rate-limit`
 help                display a list of Make Targets                       `make help`
 _listincludes       list all included Makefiles and *.mk files           `make _listincludes`
-_selfcheck          lint Makefile                                        `make selfcheck`
+_selfcheck          lint Makefile                                        `make _selfcheck`
 ```
 
 ## Notes

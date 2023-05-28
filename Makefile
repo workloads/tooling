@@ -1,7 +1,8 @@
 # Makefile for general maintenance
 
 # configuration
-TITLE = 🔧 MAINTENANCE
+TITLE        = 🔧 MAINTENANCE
+OP_ENV_FILE  = tooling.op.env
 
 include ./make/configs/shared.mk
 
@@ -34,36 +35,51 @@ pull: # pull latest changes for all repositories [Usage: `make pull`]
 	$(foreach REPOSITORY,$(GITHUB_REPOSITORIES),$(call git_pull,$(strip $(REPOSITORY))))
 
 .SILENT .PHONY: scorecards
-scorecards: # generate OpenSSF Scorecards [Usage: `make scorecards`]
-	# see https://www.gnu.org/software/make/manual/html_node/Foreach-Function.html
+scorecards: # generate OpenSSF Scorecards [Usage: `make scorecards target=<repository>`]
+ifeq ($(target),)
 	$(foreach REPOSITORY,$(GITHUB_REPOSITORIES),$(call generate_scorecard,$(strip $(REPOSITORY))))
+else
+	$(call generate_scorecard,$(strip $(target)))
+endif
 
 .SILENT .PHONY: delete-gha-logs
-delete-gha-logs: # delete GitHub Actions Logs for all repositories [Usage: `make delete-gha-logs`]
+delete-gha-logs: # delete GitHub Actions Logs for all repositories [Usage: `make delete-gha-logs target=<repository>`]
+ifeq ($(target),)
 	# see https://www.gnu.org/software/make/manual/html_node/Foreach-Function.html
 	$(foreach REPOSITORY,$(GITHUB_REPOSITORIES),$(call delete_github_actions_logs,$(strip $(REPOSITORY))))
+else
+	$(call delete_github_actions_logs,$(strip $(target)))
+endif
 
 .SILENT .PHONY: get-gh-rate-limit
 get-gh-rate-limit: # get GitHub API rate limit status [Usage: `make get-gh-rate-limit`]
 	echo
 	echo "Rate Limit for $(STYLE_GROUP_CODE)$(GITHUB_ORG)$(STYLE_RESET):"
-	gh \
-		api \
-			-H "Accept: application/vnd.github+json" \
-			"/rate_limit" \
-	| \
-	jq \
-  		--raw-output \
-  		'.rate.remaining, .rate.limit' \
-	| \
-  awk ' \
-  	{ \
-		if (NR == 1) { \
-			LIMIT = ($$0 > 0) ? "$(STYLE_FG_GREEN)" : "$(STYLE_FG_RED)";\
-			printf "remaining: %s%d$(STYLE_RESET) / ", LIMIT, $$0 \
-		} \
-		\
-		else { print $$0 } \
-		} \
-	'
+
+	# see https://cli.github.com/manual/gh_api
+	# and https://developer.1password.com/docs/cli/reference/commands/run
+	op \
+		run \
+			--account="$(OP_ACCOUNT)" \
+			--env-file="$(OP_ENV_FILE)" \
+			-- \
+			gh \
+				api \
+					-H "Accept: application/vnd.github+json" \
+					"/rate_limit" \
+			| \
+			jq \
+					--raw-output \
+					'.rate.remaining, .rate.limit' \
+			| \
+			awk ' \
+				{ \
+				if (NR == 1) { \
+					LIMIT = ($$0 > 0) ? "$(STYLE_FG_GREEN)" : "$(STYLE_FG_RED)";\
+					printf "remaining: %s%d$(STYLE_RESET) / ", LIMIT, $$0 \
+				} \
+				\
+				else { print $$0 } \
+				} \
+			'
 	echo

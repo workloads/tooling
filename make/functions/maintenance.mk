@@ -76,10 +76,18 @@ define generate_scorecard
 	$(call print_reference,$(1))
 
 	# see https://github.com/ossf/scorecard#scorecard-command-line-interface
-	scorecard \
-		--checks="$(SCORECARD_CHECKS)" \
-    --repo="github.com/$(GITHUB_ORG)/$(1)" \
-		--show-details \
+	# and https://developer.1password.com/docs/cli/reference/commands/run
+	op \
+		run \
+			--account="$(OP_ACCOUNT)" \
+			--env-file="$(OP_ENV_FILE)" \
+			-- \
+			scorecard \
+				--checks="$(SCORECARD_CHECKS)" \
+    		--repo="github.com/$(GITHUB_ORG)/$(1)" \
+				--show-details \
+			&& \
+			echo "--------------------\n" \
 	;
 endef
 
@@ -101,21 +109,30 @@ define delete_github_actions_logs
 	$(call print_reference,$(1))
 
 	# see https://cli.github.com/manual/gh_api
-	gh \
-		api \
-			-H "Accept: application/vnd.github+json" \
-			"repos/$(GITHUB_ORG)/$(1)/actions/runs" \
-			--paginate \
-			--jq '.workflow_runs[] | "\(.id)"' \
-		| \
-		xargs \
-			-n "1" \
-			-I "%" \
-			sh -c '\
-				gh \
-					api \
-					\"repos/$(GITHUB_ORG)/$(1)/actions/runs/%\" \
-					-X DELETE \
-			' \
-		;
+	# and https://developer.1password.com/docs/cli/reference/commands/run
+	op \
+		run \
+			--account="$(OP_ACCOUNT)" \
+			--env-file="$(OP_ENV_FILE)" \
+			-- \
+			gh \
+      		api \
+      			-H "Accept: application/vnd.github+json" \
+      			"repos/$(GITHUB_ORG)/$(1)/actions/runs" \
+      			--paginate \
+      			--jq '.workflow_runs[] | "\(.id)"' \
+      		| \
+      		xargs \
+      			-n "1" \
+      			-I "%" \
+      			sh -c '\
+      				echo gh \
+      					api \
+      					"repos/$(GITHUB_ORG)/$(1)/actions/runs/%" \
+      					-X DELETE \
+      			' \
+      		;
+			&& \
+			echo "--------------------\n" \
+	;
 endef

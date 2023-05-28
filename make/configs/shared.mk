@@ -11,7 +11,8 @@ SHELL       := sh
 # see https://www.gnu.org/software/make/manual/html_node/One-Shell.html
 .ONESHELL :
 
-# 1Password Account
+# 1Password-specific configuration
+# see https://developer.1password.com/docs/cli/use-multiple-accounts#use-the-op_account-environment-variable
 OP_ACCOUNT = workloads.1password.com
 
 # check if environment variable `NO_COLOR` is set to a non-empty value
