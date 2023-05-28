@@ -17,6 +17,9 @@
 ## Requirements
 
 * `make` `3.8.0` or newer
+* `terraform-docs` `0.16.0` or [newer](https://terraform-docs.io/user-guide/installation/)
+* GitHub CLI `2.29.0` or [newer](https://cli.github.com/)
+* OpenSSF Scorecard CLI `4.10.5` or [newer](https://github.com/ossf/scorecard#scorecard-command-line-interface)
 
 ## Usage
 

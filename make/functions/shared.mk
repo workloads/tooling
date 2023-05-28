@@ -5,7 +5,7 @@ define print_reference
 	echo
 endef
 
-# fail if command is missing
-define missing_subcommand
-	$(error 🛑 Missing subcommand for `$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)`. Specify with `make $(1) $(2)`)
+# fail if argument is missing
+define missing_argument
+	$(error 🛑 Missing argument for `$(1)`. Specify with `make $(1) $(2)`)
 endef

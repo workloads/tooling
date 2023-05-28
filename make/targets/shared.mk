@@ -49,7 +49,7 @@ _listincludes: # list all included Makefiles and *.mk files [Usage: `make _listi
 	echo
 
 .SILENT .PHONY: _selfcheck
-_selfcheck: # lint Makefile [Usage: `make selfcheck`]
+_selfcheck: # lint Makefile [Usage: `make _selfcheck`]
 	echo
 
 	# generates a list of files using `find`, separates the output by a NUL character and passes it to `xargs`
