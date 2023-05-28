@@ -6,6 +6,6 @@ define print_reference
 endef
 
 # fail if command is missing
-define missing_command
-	$(error 🛑 Missing command for `$(1)`. Specify with `make $(1) $(2)`)
+define missing_subcommand
+	$(error 🛑 Missing subcommand for `$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)`. Specify with `make $(1) $(2)`)
 endef

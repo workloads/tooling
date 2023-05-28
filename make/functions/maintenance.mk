@@ -47,16 +47,15 @@ define lint_workspace
 
 	# see https://developer.hashicorp.com/terraform/cli/commands/validate
 	terraform \
-		validate \
-	;
 		-chdir="$(WORKING_DIR)/$(1)" \
+		validate
+	;
 
 	# see https://github.com/terraform-linters/tflint#usage
 	tflint \
 		--chdir="$(WORKING_DIR)/$(1)" \
-		--color \
 		--config=".tflint.hcl" \
-		--format=compact \
+		--format="compact" \
 		--no-module \
 	;
 endef
@@ -78,9 +77,9 @@ define generate_scorecard
 
 	# see https://github.com/ossf/scorecard#scorecard-command-line-interface
 	scorecard \
-      --checks="$(SCORECARD_CHECKS)" \
-      --repo="github.com/$(GITHUB_ORG)/$(1)" \
-      --show-details \
+		--checks="$(SCORECARD_CHECKS)" \
+    --repo="github.com/$(GITHUB_ORG)/$(1)" \
+		--show-details \
 	;
 endef
 
