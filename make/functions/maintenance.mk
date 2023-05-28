@@ -1,10 +1,13 @@
+# define working directory, without trailing slash
+WORKING_DIR = ..
+
 # initialize and upgrade all workspaces
 define init_workspace
 	$(call print_reference,$(1))
 
 	# see https://developer.hashicorp.com/terraform/cli/commands/init
 	terraform \
-		-chdir="../$(1)" \
+		-chdir="$(WORKING_DIR)/$(1)" \
 		init \
 			-get=true \
 			-input=false \
@@ -13,7 +16,7 @@ define init_workspace
 
 	# see https://developer.hashicorp.com/terraform/cli/commands/providers/lock#specifying-target-platforms
 	terraform \
-		-chdir="../$(1)" \
+		-chdir="$(WORKING_DIR)/$(1)" \
 		providers \
 			lock \
 				-platform="darwin_amd64" \
@@ -26,7 +29,7 @@ define init_workspace
 
 	# see https://github.com/terraform-linters/tflint#usage
 	tflint \
-		--chdir="../$(1)" \
+		--chdir="$(WORKING_DIR)/$(1)" \
 		--init \
 	;
 endef
@@ -37,20 +40,20 @@ define lint_workspace
 
 	# see https://developer.hashicorp.com/terraform/cli/commands/fmt
 	terraform \
-		-chdir="../$(1)" \
+		-chdir="$(WORKING_DIR)/$(1)" \
 		fmt \
 			-recursive \
 	;
 
 	# see https://developer.hashicorp.com/terraform/cli/commands/validate
 	terraform \
-		-chdir="../$(1)" \
 		validate \
 	;
+		-chdir="$(WORKING_DIR)/$(1)" \
 
 	# see https://github.com/terraform-linters/tflint#usage
 	tflint \
-		-chdir="../$(1)" \
+		--chdir="$(WORKING_DIR)/$(1)" \
 		--color \
 		--config=".tflint.hcl" \
 		--format=compact \
@@ -64,8 +67,8 @@ define render_documentation
 
 	# see https://terraform-docs.io/reference/terraform-docs/
 	terraform-docs \
-		--config="../$(1)/.terraform-docs.yml" \
-		"../$(1)" \
+		--config="$(WORKING_DIR)/$(1)/.terraform-docs.yml" \
+		"$(WORKING_DIR)/$(1)" \
 	;
 endef
 
@@ -87,7 +90,7 @@ define git_pull
 
 	# see https://terraform-docs.io/reference/terraform-docs/
 	git \
-		-C "$(1)" \
+		-C "$(WORKING_DIR)/$(1)" \
 		pull \
 			--all \
 			--rebase=true \
@@ -96,8 +99,7 @@ endef
 
 # delete GitHub Actions Logs for all repositories
 define delete_github_actions_logs
-	echo
-	echo "Repository: $(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)"
+	$(call print_reference,$(1))
 
 	# see https://cli.github.com/manual/gh_api
 	gh \

@@ -2,6 +2,7 @@
 define print_reference
 	echo
 	echo "⚠️ Processing \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\`..."
+	echo
 endef
 
 # fail if command is missing
