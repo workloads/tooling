@@ -126,13 +126,10 @@ define delete_github_actions_logs
       			-n "1" \
       			-I "%" \
       			sh -c '\
-      				echo gh \
+      				gh \
       					api \
       					"repos/$(GITHUB_ORG)/$(1)/actions/runs/%" \
       					-X DELETE \
       			' \
-      		;
-			&& \
-			echo "--------------------\n" \
 	;
 endef
