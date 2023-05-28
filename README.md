@@ -1,6 +1,6 @@
 # Tooling
 
-> This directory is a collection of commonly used tools for [@workloads](https://github.com/workloads).
+> This directory manages common tooling for [@workloads](https://github.com/workloads).
 
 ## Table of Contents
 
@@ -9,6 +9,7 @@
   * [Table of Contents](#table-of-contents)
   * [Requirements](#requirements)
   * [Usage](#usage)
+  * [Notes](#notes)
   * [Author Information](#author-information)
   * [License](#license)
 <!-- TOC -->
