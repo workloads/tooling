@@ -39,6 +39,14 @@ _listincludes       list all included Makefiles and *.mk files           `make _
 _selfcheck          lint Makefile                                        `make selfcheck`
 ```
 
+## Notes
+
+* Colorized CLI output may be disabled by setting the `NO_COLOR` environment variable to any non-empty value.
+
+```shell
+export NO_COLOR=1 && make
+```
+
 ## Author Information
 
 This repository is maintained by the contributors listed on [GitHub](https://github.com/workloads/tooling/graphs/contributors).
