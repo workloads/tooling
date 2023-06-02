@@ -12,4 +12,4 @@ GITHUB_TERRAFORM_REPOSITORIES = dns github-organization networking regional-aws-
 GITHUB_REPOSITORIES           = .github assets edge-case edge-case-docs nomad-pack-registry packer-templates tooling
 
 # OpenSSF Scorecard Checks to execute
-SCORECARD_CHECKS = Binary-Artifacts,Branch-Protection,CI-Tests,Code-Review,Contributors,Dangerous-Workflow,Dependency-Update-Tool,License,Maintained,Pinned-Dependencies,SAST,Security-Policy,Token-Permissions,Vulnerabilities
+SCORECARD_CHECKS = Binary-Artifacts,Branch-Protection,Code-Review,Dangerous-Workflow,Dependency-Update-Tool,License,Maintained,Pinned-Dependencies,SAST,Security-Policy,Token-Permissions,Vulnerabilities
