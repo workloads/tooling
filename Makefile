@@ -37,6 +37,10 @@ pull: # pull latest changes for all repositories [Usage: `make pull`]
 
 .SILENT .PHONY: scorecards
 scorecards: # generate OpenSSF Scorecards [Usage: `make scorecards target=<repository>`]
+ifeq ($(strip $(BINARY_OP)),)
+	$(error 🛑 Missing required 1Password CLI)
+endif
+
 ifeq ($(target),)
 	$(foreach REPOSITORY,$(GITHUB_TERRAFORM_REPOSITORIES),$(call generate_scorecard,$(strip $(REPOSITORY))))
 else
@@ -45,6 +49,10 @@ endif
 
 .SILENT .PHONY: delete-gha-logs
 delete-gha-logs: # delete GitHub Actions Logs for all repositories [Usage: `make delete-gha-logs target=<repository>`]
+ifeq ($(strip $(BINARY_OP)),)
+	$(error 🛑 Missing required 1Password CLI)
+endif
+
 ifeq ($(target),)
 	# see https://www.gnu.org/software/make/manual/html_node/Foreach-Function.html
 	$(foreach REPOSITORY,$(GITHUB_ALL_REPOSITORIES),$(call delete_github_actions_logs,$(strip $(REPOSITORY))))
@@ -56,6 +64,10 @@ endif
 get-gh-rate-limit: # get GitHub API rate limit status [Usage: `make get-gh-rate-limit`]
 	echo
 	echo "Rate Limit for $(STYLE_GROUP_CODE)$(GITHUB_ORG)$(STYLE_RESET):"
+
+ifeq ($(strip $(BINARY_OP)),)
+	$(error 🛑 Missing required 1Password CLI)
+endif
 
 	# see https://cli.github.com/manual/gh_api
 	# and https://developer.1password.com/docs/cli/reference/commands/run

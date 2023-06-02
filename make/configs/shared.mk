@@ -15,6 +15,9 @@ SHELL       := sh
 # see https://developer.1password.com/docs/cli/use-multiple-accounts#use-the-op_account-environment-variable
 OP_ACCOUNT = workloads.1password.com
 
+# required / optional binaries
+BINARY_OP = $(call check_for_binary,op)
+
 # check if environment variable `NO_COLOR` is set to a non-empty value
 ifeq ($(strip $(shell echo "$(NO_COLOR)")),)
 	# `NO_COLOR` is set to an empty value, colorize CLI output
