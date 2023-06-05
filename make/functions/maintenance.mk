@@ -32,6 +32,9 @@ define init_workspace
 		--chdir="$(WORKING_DIR)/$(1)" \
 		--init \
 	;
+
+	echo \
+	;
 endef
 
 # format, validate, and lint code in all workspaces

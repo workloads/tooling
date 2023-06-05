@@ -14,6 +14,11 @@ define print_reference
 endef
 
 # generate documentation for input files by rendering them with terraform-docs
+# expected arguments:
+# $(1) - directory containing input files
+# $(2) - input files to render
+# $(3) - path to terraform-docs configuration file
+# $(4) - path to sample variables file
 define render_documentation
 	$(call print_reference,$(1))
 
@@ -23,10 +28,21 @@ define render_documentation
 	# render documentation using terraform-docs
 	terraform-docs \
 		"$(strip $(1))" \
-		--config="$(3)" \
+		--config="$(3)"
+
+	# create sample variable files using terraform-docs
+	# see https://terraform-docs.io/how-to/generate-terraform-tfvars/
+#	$(if $(strip $(4)), \
+#		terraform-docs \
+#			tfvars \
+#				hcl \
+#				"$(strip $(1))" \
+#	  > "$(strip $(1))/$(4)" \
+#	)
 
 	# remove temporary files
-	$(foreach FILE,$(2),rm "$(1)/$(basename $(FILE)).temporary.tf")
+	$(foreach FILE,$(2),rm "$(1)/$(basename $(FILE)).temporary.tf") \
+	;
 endef
 
 # create a directory if it does not exist
