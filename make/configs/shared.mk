@@ -31,7 +31,8 @@ ifeq ($(strip $(shell echo "$(NO_COLOR)")),)
   STYLE_RESET         = \033[0m
 
   # groups for compound styling
-  STYLE_GROUP_CODE = $(STYLE_BG_GRAY_LIGHT)$(STYLE_ITALIC)
+  STYLE_GROUP_TARGET = $(STYLE_BOLD)
+  STYLE_GROUP_CODE   = $(STYLE_BG_GRAY_LIGHT)$(STYLE_ITALIC)
 else
 	STYLE_BG_GRAY_LIGHT =
   STYLE_BOLD =

@@ -10,8 +10,8 @@ help: # display a list of Make Targets [Usage: `make help`]
 	awk \
   	-F ':|#|`' \
   	'BEGIN { \
-  		printf "$(STYLE_BOLD)%s$(STYLE_RESET);    ", "Target";            \
-  		printf "$(STYLE_BOLD)%s$(STYLE_RESET);          ", "Description"; \
+  		printf "$(STYLE_BOLD)%s$(STYLE_RESET); ", "Target";            \
+  		printf "$(STYLE_BOLD)%s$(STYLE_RESET);       ", "Description";    \
   		printf "$(STYLE_BOLD)%s$(STYLE_RESET);", "Usage";                 \
   		print "\n";                                                       \
   	} \
