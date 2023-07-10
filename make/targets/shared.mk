@@ -1,3 +1,7 @@
+.SILENT .PHONY: clear
+clear:
+	clear
+
 .SILENT .PHONY: help
 help: # display a list of Make Targets [Usage: `make help`]
 	echo

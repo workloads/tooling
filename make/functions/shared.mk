@@ -1,6 +1,6 @@
 # check for presence of binary on `$PATH` and return binary name
 define check_for_binary
-    $(if $(shell which $(1)),"$(1)",)
+	$(if $(shell which $(1)),"$(1)",)
 endef
 
 # fail if argument is missing
@@ -11,6 +11,13 @@ endef
 # pretty-print a reference (file path, directory, etc.)
 define print_reference
 	echo "⚠️  Processing \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\`..."
+endef
+
+# pretty-print CLI arguments, if supplied
+define print_args
+	if [ ! -z "$(ARGS)" ]; then \
+		echo "🔧️ Running with arguments \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\`"; \
+	fi
 endef
 
 # generate documentation for input files by rendering them with terraform-docs
@@ -52,3 +59,21 @@ define safely_create_directory
 	# create directory if it does not exist
 	mkdir -p "$(1)";
 endef
+
+# delete a file or directory at the specified path
+define delete_target_path
+	$(call print_reference,$(1))
+
+	echo
+
+	# remove target and verbosely print affected files
+	rm \
+		-d \
+		-f \
+		-r \
+		-v \
+		"$(1)"
+
+	echo
+endef
+
