@@ -62,9 +62,7 @@ endef
 
 # delete a file or directory at the specified path
 define delete_target_path
-	$(call print_reference,$(1))
-
-	echo
+	echo "🗑️ Deleting the following files:"
 
 	# remove target and verbosely print affected files
 	rm \
