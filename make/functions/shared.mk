@@ -25,6 +25,19 @@ define print_args
 	fi
 endef
 
+# print sanitized secrets using OP CLI and envo
+define print_secrets
+	# see https://developer.1password.com/docs/cli/reference/commands/run
+	op \
+		run \
+		  --account="$(OP_ACCOUNT)" \
+			--env-file="$(OP_ENV_FILE)" \
+			--no-masking \
+			-- \
+			envo --truncLength=3 | \
+			grep "$(1)"
+endef
+
 # generate documentation for input files by rendering them with terraform-docs
 # expected arguments:
 # $(1) - directory containing input files
