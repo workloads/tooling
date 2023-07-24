@@ -13,10 +13,15 @@ define print_reference
 	echo "⚠️  Processing \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\`..."
 endef
 
-# pretty-print CLI arguments, if supplied
+# pretty-print a single CLI arguments, if supplied
+define print_arg
+	echo "🔧️ Executing with argument \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\` with value \`$(STYLE_GROUP_CODE)$(2)$(STYLE_RESET)\`"
+endef
+
+# pretty-print pass-through CLI arguments, if supplied
 define print_args
 	if [ ! -z "$(ARGS)" ]; then \
-		echo "🔧️ Running with arguments \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\`"; \
+		echo "🔧️ Executing with arguments \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\`"; \
 	fi
 endef
 
@@ -75,3 +80,11 @@ define delete_target_path
 	echo
 endef
 
+# lint YAML files
+define yaml_lint
+	$(BINARY_YAMLLINT) \
+		--config-file "$(YAMLLINT_CONFIG)" \
+		--format "$(YAMLLINT_FORMAT)" \
+		--strict \
+		.
+endef

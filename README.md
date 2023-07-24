@@ -17,6 +17,7 @@
 ## Requirements
 
 * `make` `3.8.0` or newer
+* `checkmake` `0.2.2` or [newer](https://github.com/mrtazz/checkmake#installation)
 * `terraform-docs` `0.16.0` or [newer](https://terraform-docs.io/user-guide/installation/)
 * 1Password CLI `2.0.0` or [newer](https://1password.com/downloads/command-line/)
 * GitHub CLI `2.29.0` or [newer](https://cli.github.com/)
