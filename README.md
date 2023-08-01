@@ -10,6 +10,8 @@
   * [Requirements](#requirements)
   * [Usage](#usage)
   * [Notes](#notes)
+    * [Scoping Operations](#scoping-operations)
+    * [Colored Output](#colored-output)
   * [Author Information](#author-information)
   * [License](#license)
 <!-- TOC -->
@@ -46,6 +48,14 @@ _selfcheck          lint Makefile                                        `make _
 ```
 
 ## Notes
+
+### Scoping Operations
+
+The `init`, `lint`, `docs`, `scorecards`, and `delete-gha-logs` targets support scoping of operations to a single repository by setting the `repository` argument:
+
+```shell
+make init repository=<repository>
+```
 
 ### Colored Output
 
