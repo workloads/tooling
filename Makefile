@@ -17,7 +17,7 @@ include ./make/functions/maintenance.mk
 include ./make/targets/shared.mk
 
 .SILENT .PHONY: init
-init: # initialize and upgrade code for all workspaces [Usage: `make init`]
+init: # initialize and upgrade code for all workspaces [Usage: `make init repository=<repository>`]
 ifeq ($(repository),)
 	# see https://www.gnu.org/software/make/manual/html_node/Foreach-Function.html
 	$(foreach REPOSITORY,$(GITHUB_TERRAFORM_REPOSITORIES),$(call init_workspace,$(strip $(REPOSITORY))))
@@ -26,7 +26,7 @@ else
 endif
 
 .SILENT .PHONY: lint
-lint: # format, validate, and lint code in all workspaces [Usage: `make lint`]
+lint: # format, validate, and lint code in all workspaces [Usage: `make lint repository=<repository>`]
 ifeq ($(repository),)
 	# see https://www.gnu.org/software/make/manual/html_node/Foreach-Function.html
 	$(foreach REPOSITORY,$(GITHUB_TERRAFORM_REPOSITORIES),$(call lint_workspace,$(strip $(REPOSITORY))))
@@ -35,7 +35,7 @@ else
 endif
 
 .SILENT .PHONY: docs
-docs: # generate documentation for all workspaces [Usage: `make docs`]
+docs: # generate documentation for all workspaces [Usage: `make docs repository=<repository>`]
 ifeq ($(repository),)
 	# see https://www.gnu.org/software/make/manual/html_node/Foreach-Function.html
 	$(foreach REPOSITORY,$(GITHUB_TERRAFORM_REPOSITORIES),$(call render_documentation,$(strip $(REPOSITORY))))
@@ -60,7 +60,7 @@ else
 endif
 
 .SILENT .PHONY: delete-gha-logs
-delete-gha-logs: # delete GitHub Actions Logs for all repositories [Usage: `make delete-gha-logs target=<repository>`]
+delete-gha-logs: # delete GitHub Actions Logs for all repositories [Usage: `make delete-gha-logs repository=<repository>`]
 ifeq ($(strip $(BINARY_OP)),)
 	$(error 🛑 Missing required 1Password CLI)
 endif

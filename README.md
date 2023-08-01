@@ -51,7 +51,11 @@ _selfcheck          lint Makefile                                        `make _
 
 ### Scoping Operations
 
-The `init`, `lint`, `docs`, `scorecards`, and `delete-gha-logs` targets support scoping of operations to a single repository by setting the `repository` argument:
+The `init`, `lint`, `docs`, `scorecards`, and `delete-gha-logs` targets support both global and scoped operations.
+
+By default, all repositories (as defined in [github.mk](./make/configs/github.mk)) will be targeted.
+
+An operation may be scoped to a single repository by setting the `repository` argument:
 
 ```shell
 make init repository=<repository>
