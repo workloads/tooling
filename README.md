@@ -16,12 +16,12 @@
 
 ## Requirements
 
-* `make` `3.8.0` or newer
+* `make` `3.80` or newer
 * `checkmake` `0.2.2` or [newer](https://github.com/mrtazz/checkmake#installation)
 * `terraform-docs` `0.16.0` or [newer](https://terraform-docs.io/user-guide/installation/)
 * 1Password CLI `2.0.0` or [newer](https://1password.com/downloads/command-line/)
-* GitHub CLI `2.29.0` or [newer](https://cli.github.com/)
-* OpenSSF Scorecard CLI `4.10.5` or [newer](https://github.com/ossf/scorecard#scorecard-command-line-interface)
+* GitHub CLI `2.32.0` or [newer](https://cli.github.com/)
+* OpenSSF Scorecard CLI `4.10.0` or [newer](https://github.com/ossf/scorecard#scorecard-command-line-interface)
 
 ## Usage
 
@@ -47,7 +47,9 @@ _selfcheck          lint Makefile                                        `make _
 
 ## Notes
 
-* Colorized CLI output may be disabled by setting the `NO_COLOR` environment variable to any non-empty value.
+### Colored Output
+
+Colorized CLI output may be disabled by setting the `NO_COLOR` environment variable to any non-empty value.
 
 ```shell
 export NO_COLOR=1 && make
