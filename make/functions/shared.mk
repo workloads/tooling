@@ -5,7 +5,7 @@ endef
 
 # fail if argument is missing
 define missing_argument
-	$(error 🛑  Missing argument for `$(1)`. Specify with `make $(1) $(2)`)
+	$(error 🛑  Missing argument for `$(MAKECMDGOALS)`. Specify with `make $(MAKECMDGOALS) $(1)`)
 endef
 
 # pretty-print a reference (file path, directory, etc.)
@@ -21,7 +21,7 @@ endef
 # pretty-print pass-through CLI arguments, if supplied
 define print_args
 	if [ ! -z "$(ARGS)" ]; then \
-		echo "🔧️ Executing with arguments \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\`"; \
+		echo "🔧️ Executing with arguments \`$(STYLE_GROUP_CODE)$(ARGS)$(STYLE_RESET)\`"; \
 	fi
 endef
 
