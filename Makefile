@@ -2,7 +2,7 @@
 
 # configuration
 GITHUB_ALL_REPOSITORIES  = $(GITHUB_REPOSITORIES) $(GITHUB_TERRAFORM_REPOSITORIES)
-OP_ENV_FILE              = tooling.op.env
+OP_ENV_FILE              = secrets.op.env
 TITLE                    = 🔧 MAINTENANCE
 
 include ./make/configs/shared.mk

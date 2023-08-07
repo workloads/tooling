@@ -11,12 +11,19 @@ SHELL       := sh
 # see https://www.gnu.org/software/make/manual/html_node/One-Shell.html
 .ONESHELL :
 
+# required / optional binaries
+BINARY_OP = $(call check_for_binary,op)
+
+# get current date in YYYYMMDD-HHMMSS format
+CURRENT_DATE  = $(shell date +"%Y%m%d-%H%M%S")
+
 # 1Password-specific configuration
 # see https://developer.1password.com/docs/cli/use-multiple-accounts#use-the-op_account-environment-variable
 OP_ACCOUNT = workloads.1password.com
 
-# required / optional binaries
-BINARY_OP = $(call check_for_binary,op)
+# generate a random string with Bash built-ins, pass it through `md5sum` and limit to a specific length
+RANDOM_STRING_LENGTH ?= 4
+RANDOM_STRING         = $(shell echo "$${RANDOM}" | md5sum | head -c $(RANDOM_STRING_LENGTH))
 
 # check if environment variable `NO_COLOR` is set to a non-empty value
 ifeq ($(strip $(shell echo "$(NO_COLOR)")),)
