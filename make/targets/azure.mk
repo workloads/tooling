@@ -10,8 +10,9 @@ AZ_SERVICEPRINCIPAL_ROLE ?= "Contributor"
 # retrieve Account Email from currently authenticated Azure Account
 AZ_ACCOUNT_EMAIL   ?= $(shell az account show --output "$(AZ_OUTPUT)" --query 'user.name')
 
-# format Azure Locations output to be a list of names
-AZ_LOCATIONS_QUERY ?= "[].name"
+# format Azure Locations output to be a list of names, ignoring any items that contain the strings `stage` or `uap`
+AZ_LOCATIONS_QUERY ?= [?!(contains(name, 'stage') || contains(name, 'uap'))].{ name: name, regionalDisplayName: regionalDisplayName }
+AZ_LOCATIONS_FILE  ?= "variables_azure_locations.json"
 
 # retrieve Subscription ID from currently authenticated Azure Account, using Account Email
 AZ_SUBSCRIPTION_ID ?= $(shell az account list --output "$(AZ_OUTPUT)" --query "[?user.name == '$(AZ_ACCOUNT_EMAIL)']|[0].id")
@@ -19,7 +20,7 @@ AZ_SUBSCRIPTION_ID ?= $(shell az account list --output "$(AZ_OUTPUT)" --query "[
 # logic to enable update for Terraform-loaded variable file with Azure Locations
 UPDATE_TOGGLE =
 
-ifdef update_files
+ifdef update_file
 	UPDATE_TOGGLE = > "variables_azure_locations.json"
 endif
 
@@ -64,7 +65,7 @@ create-az-service-principal: # create Azure Service Principal [Usage: `make crea
 					# --scopes "/subscriptions/$(AZ_SUBSCRIPTION_ID)" \
 
 .SILENT .PHONY: list-az-locations
-list-az-locations: # retrieve and format a list of available Azure Locations [Usage: `make list-az-locations`]
+list-az-locations: # retrieve and format a list of available Azure Locations [Usage: `make list-az-locations update_file=true`]
 		az \
 			account \
 				list-locations \
