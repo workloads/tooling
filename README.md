@@ -34,17 +34,20 @@ Running `make` without commands will print out the following help information:
 ```text
 🔧 MAINTENANCE
 
-Target              Description                                          Usage
-init                initialize and upgrade code for all workspaces       `make init`
-lint                format, validate, and lint code in all workspaces    `make lint`
-docs                generate documentation for all workspaces            `make docs`
-pull                pull latest changes for all repositories             `make pull`
-scorecards          generate OpenSSF Scorecards                          `make scorecards target=<repository>`
-delete-gha-logs     delete GitHub Actions Logs for all repositories      `make delete-gha-logs target=<repository>`
-get-gh-rate-limit   get GitHub API rate limit status                     `make get-gh-rate-limit`
-help                display a list of Make Targets                       `make help`
-_listincludes       list all included Makefiles and *.mk files           `make _listincludes`
-_selfcheck          lint Makefile                                        `make _selfcheck`
+Target              Description                                                 Usage
+init                initialize and upgrade code for all workspaces              `make init repository=<repository>`
+lint                format, validate, and lint code in all workspaces           `make lint repository=<repository>`
+docs                generate documentation for all workspaces                   `make docs repository=<repository>`
+pull                pull latest changes for all repositories                    `make pull`
+scorecards          generate OpenSSF Scorecards                                 `make scorecards target=<repository>`
+delete-gha-logs     delete GitHub Actions Logs for all repositories             `make delete-gha-logs repository=<repository>`
+get-gh-rate-limit   get GitHub API rate limit status                            `make get-gh-rate-limit`
+request-cert        request a wildcard certificate from Let's Encrypt           `make request-cert domain=<domain>`
+get-cert            retrieve a wildcard certificate from Vault                  `make get-cert domain=<domain>`
+put-cert            store a wildcard certificate from Let's Encrypt in Vault    `make store-cert domain=<domain>`
+help                display a list of Make Targets                              `make help`
+_listincludes       list all included Makefiles and *.mk files                  `make _listincludes`
+_selfcheck          lint Makefile                                               `make _selfcheck`
 ```
 
 ## Notes
