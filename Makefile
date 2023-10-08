@@ -52,6 +52,15 @@ endif
 pull: # pull latest changes for all repositories [Usage: `make pull`]
 	$(foreach REPOSITORY,$(GITHUB_REPOSITORIES),$(call git_pull,$(strip $(REPOSITORY))))
 
+.SILENT .PHONY: mirror
+mirror: # create mirror of Terraform Provider binaries [Usage: `make mirror repository=<repository>`]
+ifeq ($(repository),)
+	# see https://www.gnu.org/software/make/manual/html_node/Foreach-Function.html
+	$(foreach REPOSITORY,$(GITHUB_TERRAFORM_REPOSITORIES),$(call mirror_providers,$(strip $(REPOSITORY))))
+else
+	$(call mirror_providers,$(strip $(repository)))
+endif
+
 .SILENT .PHONY: scorecards
 scorecards: # generate OpenSSF Scorecards [Usage: `make scorecards target=<repository>`]
 ifeq ($(strip $(BINARY_OP)),)

@@ -37,6 +37,22 @@ define init_workspace
 	;
 endef
 
+# initialize and upgrade all workspaces
+define mirror_providers
+	$(call print_reference,$(1))
+
+	# see https://developer.hashicorp.com/terraform/cli/commands/providers/lock#specifying-target-platforms
+	terraform \
+		-chdir="$(WORKING_DIR)/$(1)" \
+		providers \
+			mirror \
+				"../.terraform-providers/" \
+	;
+
+	echo \
+	;
+endef
+
 # format, validate, and lint code in all workspaces
 define lint_workspace
 	$(call print_reference,$(1))
