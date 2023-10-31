@@ -70,6 +70,15 @@ define render_documentation
 	;
 endef
 
+# process HCL files with `hclfmt`
+# expected argument:
+# $(1) - file to format
+define format_hcl_files
+	$(call print_reference,$(1))
+
+  $(shell $(BINARY_HCLFMT) -w "$(strip $(1))")
+endef
+
 # create a directory if it does not exist
 define safely_create_directory
 	$(call print_reference,$(1))

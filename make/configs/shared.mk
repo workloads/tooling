@@ -12,10 +12,11 @@ SHELL       := sh
 .ONESHELL :
 
 # required / optional binaries
-BINARY_OP = $(call check_for_binary,op)
+BINARY_OP     = $(call check_for_binary,op)
+BINARY_HCLFMT = $(call check_for_binary,hclfmt)
 
 # get current date in YYYYMMDD-HHMMSS format
-CURRENT_DATE  = $(shell date +"%Y%m%d-%H%M%S")
+CURRENT_DATE = $(shell date +"%Y%m%d-%H%M%S")
 
 # 1Password-specific configuration
 # see https://developer.1password.com/docs/cli/use-multiple-accounts#use-the-op_account-environment-variable
