@@ -2,6 +2,8 @@
 WORKING_DIR = ..
 
 # initialize and upgrade all workspaces
+# expected argument:
+# $(1) - workspace to initialize and upgrade
 define init_workspace
 	$(call print_reference,$(1))
 
@@ -38,6 +40,8 @@ define init_workspace
 endef
 
 # initialize and upgrade all workspaces
+# expected argument:
+# $(1) - providers to mirror
 define mirror_providers
 	$(call print_reference,$(1))
 
@@ -54,6 +58,8 @@ define mirror_providers
 endef
 
 # format, validate, and lint code in all workspaces
+# expected argument:
+# $(1) - workspace to lint
 define lint_workspace
 	$(call print_reference,$(1))
 
@@ -80,6 +86,8 @@ define lint_workspace
 endef
 
 # generate documentation for all workspaces
+# expected argument:
+# $(1) - target to render documentation for
 define render_documentation
 	$(call print_reference,$(1))
 
@@ -91,6 +99,8 @@ define render_documentation
 endef
 
 # generate OpenSSF Scorecard
+# expected argument:
+# $(1) - repository to generate scorecard for
 define generate_scorecard
 	$(call print_reference,$(1))
 
@@ -111,6 +121,8 @@ define generate_scorecard
 endef
 
 # pull latest changes for all repositories
+# expected argument:
+# $(1) - repository to pull
 define git_pull
 	$(call print_reference,$(1))
 
@@ -124,6 +136,8 @@ define git_pull
 endef
 
 # delete GitHub Actions Logs for all repositories
+# expected argument:
+# $(1) - GitHub Repository to delete logs for
 define delete_github_actions_logs
 	$(call print_reference,$(1))
 

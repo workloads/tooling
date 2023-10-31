@@ -1,4 +1,6 @@
 # initialize a Packer Template
+# expected argument:
+# $(1) - directory to initialize
 define packer_init
 	# see https://developer.hashicorp.com/packer/docs/commands/init
 	$(BINARY_PACKER) \
@@ -9,6 +11,8 @@ define packer_init
 endef
 
 # build a Packer Template
+# expected argument:
+# $(1) - template to build
 define packer_build
 	# see https://developer.hashicorp.com/packer/docs/commands/build
 	$(BINARY_PACKER) \
@@ -20,6 +24,8 @@ define packer_build
 endef
 
 # build a Packer Template after injecting secrets
+# expected argument:
+# $(1) - workspace to build, with secrets injected
 define packer_build_with_secrets
 	# see https://developer.1password.com/docs/cli/reference/commands/run
 	# and https://developer.hashicorp.com/packer/docs/commands/build
@@ -37,6 +43,8 @@ define packer_build_with_secrets
 endef
 
 # start Console for a Packer Template
+# expected argument:
+# $(1) - directory to start Packer Console for
 define packer_console
 	# see https://developer.hashicorp.com/packer/docs/commands/console
 	$(BINARY_PACKER) \
@@ -47,6 +55,8 @@ define packer_console
 endef
 
 # lint a Packer Template
+# expected argument:
+# $(1) - directory to lint
 define packer_lint
 	# see https://developer.hashicorp.com/packer/docs/commands/fmt
   # and https://developer.hashicorp.com/packer/docs/commands/validate
