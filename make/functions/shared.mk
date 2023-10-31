@@ -1,4 +1,6 @@
 # check for presence of binary on `$PATH` and return binary name
+# expected argument:
+# $(1) - binary to check for
 define check_for_binary
 	$(if $(shell which $(1)),"$(1)",)
 endef
@@ -9,16 +11,22 @@ define missing_argument
 endef
 
 # pretty-print a reference (file path, directory, etc.)
+# expected argument:
+# $(1) - reference to print
 define print_reference
 	echo "⚠️  Processing \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\`..."
 endef
 
 # pretty-print a single CLI arguments, if supplied
+# expected argument:
+# $(1) - argument to pretty-print
 define print_arg
 	echo "🔧️ Executing with argument \`$(STYLE_GROUP_CODE)$(1)$(STYLE_RESET)\` with value \`$(STYLE_GROUP_CODE)$(2)$(STYLE_RESET)\`"
 endef
 
 # pretty-print pass-through CLI arguments, if supplied
+# expected argument:
+# $(1) - arguments to pretty-print
 define print_args
 	if [ ! -z "$(ARGS)" ]; then \
 		echo "🔧️ Executing with arguments \`$(STYLE_GROUP_CODE)$(ARGS)$(STYLE_RESET)\`"; \
@@ -26,6 +34,8 @@ define print_args
 endef
 
 # print sanitized secrets using OP CLI and envo
+# expected argument:
+# $(1) - secret to print
 define print_secrets
 	# see https://developer.1password.com/docs/cli/reference/commands/run
 	op \
@@ -80,6 +90,8 @@ define format_hcl_files
 endef
 
 # create a directory if it does not exist
+# expected argument:
+# $(1) - directory to create
 define safely_create_directory
 	$(call print_reference,$(1))
 
@@ -88,6 +100,8 @@ define safely_create_directory
 endef
 
 # delete a file or directory at the specified path
+# expected argument:
+# $(1) - file to delete
 define delete_target_path
 	echo "🗑️ Deleting the following files:"
 
