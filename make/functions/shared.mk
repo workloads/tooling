@@ -31,6 +31,10 @@ define print_args
 	if [ ! -z "$(ARGS)" ]; then \
 		echo "🔧️ Executing with arguments \`$(STYLE_GROUP_CODE)$(ARGS)$(STYLE_RESET)\`"; \
 	fi
+
+	if [ ! -z "$(cli_args)" ]; then \
+		echo "🔧️ Executing with CLI arguments \`$(STYLE_GROUP_CODE)$(cli_args)$(STYLE_RESET)\`"; \
+	fi
 endef
 
 # print sanitized secrets using OP CLI and envo
