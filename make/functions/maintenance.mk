@@ -143,7 +143,7 @@ define git_checkout
 	gh \
 		repo \
 			clone \
-				"$(GITHUB_ORG)/$(1)" "test_$(1)" \
+				"$(GITHUB_ORG)/$(1)" "$(1)" \
 	;
 endef
 
