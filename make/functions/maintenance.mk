@@ -126,12 +126,24 @@ endef
 define git_pull
 	$(call print_reference,$(1))
 
-	# see https://terraform-docs.io/reference/terraform-docs/
 	git \
 		-C "$(WORKING_DIR)/$(1)" \
 		pull \
 			--all \
 			--rebase=true \
+	;
+endef
+
+# check out repository
+# expected argument:
+# $(1) - repository to check out
+define git_checkout
+	$(call print_reference,$(1))
+
+	gh \
+		repo \
+			clone \
+				"$(GITHUB_ORG)/$(1)" "test_$(1)" \
 	;
 endef
 

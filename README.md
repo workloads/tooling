@@ -38,6 +38,7 @@ Target              Description                                                 
 init                initialize and upgrade code for all workspaces              `make init repository=<repository>`
 lint                format, validate, and lint code in all workspaces           `make lint repository=<repository>`
 docs                generate documentation for all workspaces                   `make docs repository=<repository>`
+checkout            check out all (public and private) repositories             `make checkout`
 pull                pull latest changes for all repositories                    `make pull`
 scorecards          generate OpenSSF Scorecards                                 `make scorecards target=<repository>`
 delete-gha-logs     delete GitHub Actions Logs for all repositories             `make delete-gha-logs repository=<repository>`
