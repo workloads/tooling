@@ -4,7 +4,6 @@
 CERTIFICATE_EMAIL       ?= "hostmaster"
 CERTIFICATE_SERVER      ?= "https://acme-v02.api.letsencrypt.org/directory"
 DIR_CERTIFICATE_CHAIN   ?= ./certificates/$(domain)
-GITHUB_ALL_REPOSITORIES  = $(GITHUB_REPOSITORIES) $(GITHUB_TERRAFORM_REPOSITORIES)
 OP_ENV_FILE              = secrets.op.env
 TITLE                    = 🔧 MAINTENANCE
 VAULT_MOUNT             ?= "tls-certificates"
@@ -19,6 +18,7 @@ include ./make/configs/github.mk
 
 include ./make/functions/maintenance.mk
 
+include ./make/targets/github.mk
 include ./make/targets/shared.mk
 
 .SILENT .PHONY: init
@@ -73,55 +73,12 @@ else
 	$(call generate_scorecard,$(strip $(repository)))
 endif
 
-.SILENT .PHONY: delete-gha-logs
-delete-gha-logs: # delete GitHub Actions Logs for all repositories [Usage: `make delete-gha-logs repository=<repository>`]
-ifeq ($(strip $(BINARY_OP)),)
-	$(error 🛑 Missing required 1Password CLI)
-endif
-
 ifeq ($(repository),)
 	# see https://www.gnu.org/software/make/manual/html_node/Foreach-Function.html
-	$(foreach REPOSITORY,$(GITHUB_ALL_REPOSITORIES),$(call delete_github_actions_logs,$(strip $(REPOSITORY))))
+	$(foreach REPOSITORY,$(GITHUB_REPOSITORIES),$(call delete_github_actions_logs,$(strip $(REPOSITORY))))
 else
 	$(call delete_github_actions_logs,$(strip $(repository)))
 endif
-
-.SILENT .PHONY: get-gh-rate-limit
-get-gh-rate-limit: # get GitHub API rate limit status [Usage: `make get-gh-rate-limit`]
-	echo
-	echo "Rate Limit for $(STYLE_GROUP_CODE)$(GITHUB_ORG)$(STYLE_RESET):"
-
-ifeq ($(strip $(BINARY_OP)),)
-	$(error 🛑 Missing required 1Password CLI)
-endif
-
-	# see https://cli.github.com/manual/gh_api
-	# and https://developer.1password.com/docs/cli/reference/commands/run
-	op \
-		run \
-			--account="$(OP_ACCOUNT)" \
-			--env-file="$(OP_ENV_FILE)" \
-			-- \
-			gh \
-				api \
-					-H "Accept: application/vnd.github+json" \
-					"/rate_limit" \
-			| \
-			jq \
-					--raw-output \
-					'.rate.remaining, .rate.limit' \
-			| \
-			awk ' \
-				{ \
-				if (NR == 1) { \
-					LIMIT = ($$0 > 0) ? "$(STYLE_FG_GREEN)" : "$(STYLE_FG_RED)";\
-					printf "remaining: %s%d$(STYLE_RESET) / ", LIMIT, $$0 \
-				} \
-				\
-				else { print $$0 } \
-				} \
-			'
-	echo
 
 .SILENT .PHONY: request-cert
 request-cert: # request a wildcard certificate from Let's Encrypt [Usage: `make request-cert domain=<domain>`]
