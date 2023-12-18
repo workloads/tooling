@@ -8,8 +8,8 @@ GITHUB_ACTIONS_CONCLUSION = failure
 GITHUB_ORG = workloads
 
 # local directories (= GitHub Repositories) to consider
-GITHUB_TERRAFORM_REPOSITORIES = community dns github-organization networking regional-aws-deployment regional-azure-deployment regional-do-deployment regional-gcp-deployment regional-workspaces services-configuration services-deployment terraform-aws-regional-cidrs users web-assets web-assets-sync web-redirects website-deployment workspaces
-GITHUB_REPOSITORIES           = .github assets container-images edge-case edge-case-docs hugo-theme-workloads minecraft-bot nomad-pack-registry packer-templates tooling website
+GITHUB_TERRAFORM_REPOSITORIES = $(shell gh repo list $(GITHUB_ORG) --topic=terraform --json=name --template '{{range .}}{{ .name}} {{end}}')
+GITHUB_REPOSITORIES           = $(shell gh repo list $(GITHUB_ORG) --json=name --template '{{range .}}{{ .name}} {{end}}')
 
 # OpenSSF Scorecard Checks to execute
 SCORECARD_CHECKS = Binary-Artifacts,Branch-Protection,Code-Review,Dangerous-Workflow,Dependency-Update-Tool,License,Maintained,Pinned-Dependencies,SAST,Security-Policy,Token-Permissions,Vulnerabilities
