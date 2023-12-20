@@ -1,0 +1,8 @@
+# technology and product names
+Boundary Helper
+HashiCorp Cloud Platform (HCP)
+HCP Boundary
+Makefile
+
+# general terms
+Table of Contents
