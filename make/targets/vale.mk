@@ -1,11 +1,11 @@
 # Vale-specific Makefile targets
 
-VALE_CONFIG  =.vale.ini
-VALE_PATH   ?=*.md
+VALE_CONFIG  = ../tooling/.vale.ini
+VALE_PATH   ?= *.md
 
 .SILENT .PHONY: vale_lint
 vale_lint: # lint prose with Vale [Usage: `make vale_lint`]
-	echo vale \
+	vale \
 		--config=$(VALE_CONFIG) \
 		$(VALE_PATH)
 
