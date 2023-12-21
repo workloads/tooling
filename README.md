@@ -10,6 +10,7 @@
   * [Requirements](#requirements)
   * [Usage](#usage)
   * [Notes](#notes)
+    * [Sensitive Data](#sensitive-data)
     * [Scoping Operations](#scoping-operations)
     * [Colorized Output](#colorized-output)
   * [Contributors](#contributors)
@@ -52,6 +53,10 @@ _selfcheck          lint Makefile                                               
 ```
 
 ## Notes
+
+### Sensitive Data
+
+Terraform state may contain [sensitive data](https://developer.hashicorp.com/terraform/language/state/sensitive-data). This workspace uses [Terraform Cloud](https://developer.hashicorp.com/terraform/cloud-docs) to safely store state, and encrypt the data at rest.
 
 ### Scoping Operations
 
