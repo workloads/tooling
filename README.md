@@ -1,6 +1,6 @@
 # Tooling
 
-> This directory manages common tooling for [@workloads](https://github.com/workloads).
+> This repository manages common tooling for [@workloads](https://github.com/workloads).
 
 ## Table of Contents
 
@@ -11,8 +11,8 @@
   * [Usage](#usage)
   * [Notes](#notes)
     * [Scoping Operations](#scoping-operations)
-    * [Colored Output](#colored-output)
-  * [Author Information](#author-information)
+    * [Colorized Output](#colorized-output)
+  * [Contributors](#contributors)
   * [License](#license)
 <!-- TOC -->
 
