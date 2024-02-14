@@ -37,8 +37,8 @@ help: # display a list of Make Targets [Usage: `make help`]
   	$(MAKEFILE_LIST) \
   	| \
   	column \
-  		-c="3" \
-  		-s=";" \
+  		-c "3" \
+  		-s ";" \
   		-t
 	echo
 
