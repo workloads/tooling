@@ -5,7 +5,7 @@ clear:
 .SILENT .PHONY: help
 help: # display a list of Make Targets [Usage: `make help`]
 	echo
-	echo "$(STYLE_BOLD)$(TITLE)$(STYLE_BOLD)"
+	echo "$(STYLE_BOLD)$(MAKEFILE_TITLE)$(STYLE_BOLD)"
 	echo
 
 	# group 1 = target name: all lowercase characters, dashes, and underscores
@@ -47,16 +47,20 @@ _listincludes: # list all included Makefiles and *.mk files [Usage: `make _listi
 	echo
 	echo "Currently loaded $(STYLE_GROUP_CODE)*.mk$(STYLE_RESET) files are:"
 	echo
+
 	for ITEM in $(MAKEFILE_LIST); do \
 		echo " * $(STYLE_GROUP_CODE)$${ITEM}$(STYLE_RESET)"; \
 	done
+
 	echo
 
 .SILENT .PHONY: _selfcheck
 _selfcheck: # lint Makefile [Usage: `make _selfcheck`]
 	echo
+	echo "Make $(STYLE_GROUP_CODE).FEATURES$(STYLE_RESET): $(.FEATURES)"
+	echo
 
-	# generates a list of files using `find`, separates the output by a NUL character and passes it to `xargs`
+	# generates a list of files using `find`, separates the output by a NULL character and passes it to `xargs`
 	find \
 		$(MAKEFILE_LIST) \
 		-type f \
@@ -67,14 +71,14 @@ _selfcheck: # lint Makefile [Usage: `make _selfcheck`]
 		-print0 \
 	| \
 	xargs \
-		-0 \
-		-n "1" \
+		--null \
+		--max-args="1" \
 		sh -c '\
-			echo "File: $(STYLE_GROUP_CODE)$$0$(STYLE_RESET)" \
+			echo "File: $(STYLE_GROUP_CODE)$${0}$(STYLE_RESET)" \
 			&& \
-			checkmake \
-				--config=".checkmake.ini" \
-				"$$0" \
+			$(BINARY_CHECKMAKE) \
+				--config="$(CONFIG_CHECKMAKE)" \
+				"$${0}" \
 			&& \
 			echo \
 		'
