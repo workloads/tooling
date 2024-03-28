@@ -1,16 +1,18 @@
-# Vale-specific Makefile targets
+# Vale-specific Make Targets
 
-VALE_CONFIG  = ../tooling/.vale.ini
+BINARY_VALE ?= vale
+CONFIG_VALE ?= ../tooling/.vale.ini
 VALE_PATH   ?= *.md
+
 
 .SILENT .PHONY: vale_lint
 vale_lint: # lint prose with Vale [Usage: `make vale_lint`]
-	vale \
-		--config=$(VALE_CONFIG) \
+	$(BINARY_VALE) \
+		--config=$(CONFIG_VALE) \
 		$(VALE_PATH)
 
 .SILENT .PHONY: vale_sync
 vale_sync: # sync Vale dependencies [Usage: `make vale_sync`]
-	vale \
+	$(BINARY_VALE) \
 		sync \
-			--config=$(VALE_CONFIG) \
+			--config=$(CONFIG_VALE) \

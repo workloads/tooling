@@ -1,9 +1,4 @@
-# Packer-specific Makefile targets
-
-.SILENT .PHONY: yaml_lint
-yaml_lint: # lint YAML files [Usage: `make yaml_lint`]
-	$(call yaml_lint)
-
+# Packer-specific Make Targets
 
 .SILENT .PHONY: _link_vars
 _link_vars: # create a symlink to the shared variables file for a new builder [Usage: `make _link_vars builder=<builder>`]

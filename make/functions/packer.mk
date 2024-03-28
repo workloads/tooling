@@ -29,10 +29,10 @@ endef
 define packer_build_with_secrets
 	# see https://developer.1password.com/docs/cli/reference/commands/run
 	# and https://developer.hashicorp.com/packer/docs/commands/build
-	op \
+	$(BINARY_OP) \
 		run \
-			--account="$(OP_ACCOUNT)" \
-			--env-file="$(OP_ENV_FILE)" \
+			--account="$(ONEPASSWORD_ACCOUNT)" \
+			--env-file="$(ONEPASSWORD_SECRETS_FILE)" \
 			-- \
 				$(BINARY_PACKER) \
 					build \

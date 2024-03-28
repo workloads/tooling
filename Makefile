@@ -1,13 +1,12 @@
-# Makefile for general maintenance
+# Makefile for Tooling
 
 # configuration
-CERTIFICATE_EMAIL       ?= "hostmaster"
-CERTIFICATE_SERVER      ?= "https://acme-v02.api.letsencrypt.org/directory"
-DIR_CERTIFICATE_CHAIN   ?= ./certificates/$(domain)
-OP_ENV_FILE              = secrets.op.env
-TITLE                    = 🔧 MAINTENANCE
-VAULT_MOUNT             ?= "tls-certificates"
-VAULT_NAMESPACE         ?= "admin"
+CERTIFICATE_EMAIL      ?= "hostmaster"
+CERTIFICATE_SERVER     ?= "https://acme-v02.api.letsencrypt.org/directory"
+DIR_CERTIFICATE_CHAIN  ?= ./certificates/$(domain)
+MAKEFILE_TITLE          = 🔧 MAINTENANCE
+VAULT_MOUNT            ?= "tls-certificates"
+VAULT_NAMESPACE        ?= "admin"
 
 include ./make/configs/shared.mk
 
@@ -24,10 +23,6 @@ include ./make/targets/shared.mk
 
 .SILENT .PHONY: scorecards
 scorecards: # generate OpenSSF Scorecards [Usage: `make scorecards target=<repository>`]
-ifeq ($(strip $(BINARY_OP)),)
-	$(error 🛑 Missing required 1Password CLI)
-endif
-
 ifeq ($(repository),)
 	$(foreach REPOSITORY,$(GITHUB_TERRAFORM_REPOSITORIES),$(call generate_scorecard,$(strip $(REPOSITORY))))
 else
@@ -36,9 +31,9 @@ endif
 
 ifeq ($(repository),)
 	# see https://www.gnu.org/software/make/manual/html_node/Foreach-Function.html
-	$(foreach REPOSITORY,$(GITHUB_REPOSITORIES),$(call delete_github_actions_logs,$(strip $(REPOSITORY))))
+	$(foreach REPOSITORY,$(GITHUB_REPOSITORIES),$(call github_delete_actions_logs,$(strip $(REPOSITORY))))
 else
-	$(call delete_github_actions_logs,$(strip $(repository)))
+	$(call github_delete_actions_logs,$(strip $(repository)))
 endif
 
 .SILENT .PHONY: request-cert
@@ -50,7 +45,7 @@ request-cert: # request a wildcard certificate from Let's Encrypt [Usage: `make 
 
 	# request a wildcard certificate for `<domain>` and `*.<domain>`
 	# see https://eff-certbot.readthedocs.io/en/stable/using.html#manual
-	certbot \
+	$(BINARY_CERTBOT) \
 		certonly \
 			--agree-tos \
 			--config-dir="$(DIR_CERTIFICATE_CHAIN)" \
@@ -70,7 +65,7 @@ get-cert: # retrieve a wildcard certificate from Vault [Usage: `make get-cert do
 	$(if $(domain),,$(call missing_argument,domain=<domain>))
 
 	# see https://developer.hashicorp.com/vault/docs/commands/kv/get
-	vault \
+	$(BINARY_VAULT) \
 		kv \
 			get \
 				-namespace="$(VAULT_NAMESPACE)" \
@@ -82,7 +77,7 @@ put-cert: # store a wildcard certificate from Let's Encrypt in Vault [Usage: `ma
 	$(if $(domain),,$(call missing_argument,domain=<domain>))
 
 	# see https://developer.hashicorp.com/vault/docs/commands/kv/put
-	vault \
+	$(BINARY_VAULT) \
 		kv \
 			put \
 				-namespace="$(VAULT_NAMESPACE)" \
