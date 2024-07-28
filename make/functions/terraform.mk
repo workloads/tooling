@@ -6,7 +6,7 @@ BINARY_TERRAFORM_DOCS ?= terraform-docs
 BINARY_TFLINT         ?= tflint
 CONFIG_TERRAFORM_DOCS ?= .terraform-docs.yml
 CONFIG_TFLINT         ?= .tflint.hcl
-DIR_TERRAFORM_PLUGINS ?= ~/.terraform.d/plugins
+DIR_TERRAFORM_PLUGINS ?= $(HOME)/.terraform.d/plugins
 FORMAT_TFLINT         ?= compact # see https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/config.md#format
 WORKING_DIR            = ..
 

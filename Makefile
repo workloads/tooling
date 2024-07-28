@@ -15,7 +15,7 @@ include ./make/functions/shared.mk
 # include Terraform-generated configuration data
 include ./make/configs/github.mk
 
-include ./make/functions/maintenance.mk
+include ./make/functions/terraform.mk
 
 include ./make/targets/terraform.mk
 include ./make/targets/github.mk
