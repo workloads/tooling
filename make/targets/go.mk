@@ -10,7 +10,7 @@ OUTPUT_FILE           = dist/$(shell basename $(PWD))
 
 
 .SILENT .PHONY: lint
-lint: # lint codebase [Usage: `make lint`]
+lint: # lint Go code [Usage: `make lint`]
 	$(call print_reference,$(shell pwd))
 
 	$(BINARY_GO) \
