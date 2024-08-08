@@ -1,12 +1,14 @@
 # YAMLLint-specific Make Targets
 
+# see https://yamllint.readthedocs.io/en/stable/quickstart.html#running-yamllint
+
 BINARY_YAMLLINT ?= yamllint
 CONFIG_YAMLLINT ?= .yaml-lint.yml
-FORMAT_YAMLLINT ?= colored # see https://yamllint.readthedocs.io/en/stable/quickstart.html#running-yamllint
+FORMAT_YAMLLINT ?= colored
 
 
-.SILENT .PHONY: yaml_lint
-yaml_lint: # lint YAML files [Usage: `make yaml_lint`]
+.SILENT .PHONY: lint-yaml
+lint-yaml: # lint YAML files [Usage: `make lint-yaml`]
 	$(BINARY_YAMLLINT) \
 		--config-file "$(CONFIG_YAMLLINT)" \
 		--format "$(FORMAT_YAMLLINT)" \
