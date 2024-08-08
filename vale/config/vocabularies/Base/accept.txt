@@ -21,6 +21,7 @@ HashiCorp Vault
 Infracost
 Keybase
 Leicke
+Lidar
 Makefile
 Minecraft
 Mondoo
@@ -38,7 +39,8 @@ Subnet
 The Black Beast
 Unifi
 VPCs
-Waveshare
+[Ww]aveshare[.com]
+youyeetoo
 
 
 # VARIABLE NAMES
