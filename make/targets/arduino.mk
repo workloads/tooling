@@ -77,10 +77,9 @@ monitor: # monitor binary output using arduino-cli [Usage: `make monitor`]
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_monitor/
 	$(BINARY_ARDUINO_CLI) \
 		monitor \
-			--config "$(ARDUINO_CLI_MONITOR_BAUDRATE)" \
+			--config baudrate=$(ARDUINO_CLI_MONITOR_BAUDRATE) \
 			--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
-			--protocol "$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
 			--timestamp \
 	;
 
