@@ -1,3 +1,5 @@
 certificates/**
-vale/*
-!vale/Vocab/
+
+# Vale-specific styles
+!vale/config/vocabularies/
+vale/**
