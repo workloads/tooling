@@ -59,12 +59,12 @@ upload: # upload binary artifact using arduino-cli [Usage: `make upload`]
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_compile/
 	$(BINARY_ARDUINO_CLI) \
 		upload \
-			--config-fil "$(ARDUINO_SKETCH_CONFIG)" \
+			--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
 			--input-dir "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
 			--profile "$(ARDUINO_SKETCH_PROFILE)" \
 			--protocol "$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
-			--verify
+			--verify \
 	;
 
 
@@ -80,6 +80,7 @@ monitor: # monitor binary output using arduino-cli [Usage: `make monitor`]
 			--config "$(ARDUINO_CLI_MONITOR_BAUDRATE)" \
 			--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
+			--protocol "$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
 			--timestamp \
 	;
 
