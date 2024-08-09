@@ -1,7 +1,5 @@
 # Arduino-specific Make Targets
 
-# TODO: integrate with `workloads/tooling`
-
 BINARY_ARDUINO_CLI  ?= arduino-cli
 
 

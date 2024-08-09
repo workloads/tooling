@@ -1,7 +1,5 @@
 # Cpp-specific Make Targets
 
-# TODO: integrate with `workloads/tooling`
-
 BINARY_CPPLINT      ?= cpplint
 BINARY_CLANG_FORMAT ?= clang-format
 

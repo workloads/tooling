@@ -1,7 +1,5 @@
 # arduino-lint-specific Make Targets
 
-# TODO: integrate with `workloads/tooling`
-
 BINARY_ARDUINO_LINT ?= arduino-lint
 
 FORMAT_ARDUINO_LINT ?= text

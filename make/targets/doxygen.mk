@@ -1,7 +1,5 @@
 # Doxygen-specific Make Targets
 
-# TODO: integrate with `workloads/tooling`
-
 BINARY_DOXYGEN ?= doxygen
 BINARY_GIT     ?= git
 
