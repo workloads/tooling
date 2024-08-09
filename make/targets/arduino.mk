@@ -2,10 +2,12 @@
 
 BINARY_ARDUINO_CLI  ?= arduino-cli
 
+PORT_ARDUINO_CLI    ?= $(shell ls /dev/cu.usbserial-* | head -n 1 | sed 's/^.* //')
+
 
 .SILENT .PHONY: attach
 attach: # attach Arduino Board using arduino-cli [Usage: `make attach`]
-	$(call print_reference,"$(ARDUINO_SKETCH_CONFIG)")
+	$(call print_arg,"port",$(PORT_ARDUINO_CLI))
 
 	echo
 
@@ -14,6 +16,7 @@ attach: # attach Arduino Board using arduino-cli [Usage: `make attach`]
 		board \
 			attach \
 				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
+				--port "$(PORT_ARDUINO_CLI)" \
 	;
 
 
@@ -30,6 +33,7 @@ clean: # clean Arduino cache using arduino-cli [Usage: `make clean`]
 .SILENT .PHONY: compile
 compile: # compile Arduino Sketch using arduino-cli [Usage: `make compile`]
 	$(call print_reference,"$(ARDUINO_SKETCH_FILE)")
+	$(call print_arg,"profile",$(ARDUINO_SKETCH_PROFILE))
 
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_compile/
 	# and https://arduino.github.io/arduino-cli/1.0/sketch-build-process/
@@ -41,7 +45,6 @@ compile: # compile Arduino Sketch using arduino-cli [Usage: `make compile`]
 			--jobs "$(ARDUINO_CLI_COMPILE_JOBS)" \
 			--output-dir "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
 			--profile "$(ARDUINO_SKETCH_PROFILE)" \
-			--protocol "$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
 			--quiet \
 			--verify \
 			--warnings "$(ARDUINO_CLI_COMPILE_WARNINGS)" \
@@ -52,6 +55,7 @@ compile: # compile Arduino Sketch using arduino-cli [Usage: `make compile`]
 .SILENT .PHONY: upload
 upload: # upload binary artifact using arduino-cli [Usage: `make upload`]
 	$(call print_reference,"$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)")
+	$(call print_arg,"port",$(PORT_ARDUINO_CLI))
 
 	echo
 
@@ -62,7 +66,6 @@ upload: # upload binary artifact using arduino-cli [Usage: `make upload`]
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
 			--input-dir "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
 			--profile "$(ARDUINO_SKETCH_PROFILE)" \
-			--protocol "$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
 			--verify \
 	;
 
@@ -105,6 +108,7 @@ install-libs: # install Arduino libraries using arduino-cli [Usage: `make instal
 		lib \
 			update-index \
 				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
+	;
 
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_lib_install/
 	$(BINARY_ARDUINO_CLI) \
