@@ -18,6 +18,7 @@ attach: # attach Arduino Board using arduino-cli [Usage: `make attach`]
 				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 	;
 
+
 .SILENT .PHONY: clean
 clean: # clean Arduino cache using arduino-cli [Usage: `make clean`]
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_cache_clean/
@@ -77,7 +78,7 @@ monitor: # monitor binary output using arduino-cli [Usage: `make monitor`]
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_monitor/
 	$(BINARY_ARDUINO_CLI) \
 		monitor \
-			--config baudrate=$(ARDUINO_CLI_MONITOR_BAUDRATE) \
+			--config "baudrate=$(ARDUINO_CLI_MONITOR_BAUDRATE)" \
 			--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
 			--timestamp \
@@ -100,6 +101,12 @@ install-cores: # install Arduino Board Core using arduino-cli [Usage: `make inst
 .SILENT .PHONY: install-libs
 install-libs: # install Arduino libraries using arduino-cli [Usage: `make install-libs`]
 	echo "⚠️  Installing and updating upstream libraries"
+
+	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_lib_update-index/
+	$(BINARY_ARDUINO_CLI) \
+		lib \
+			update-index \
+				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_lib_install/
 	$(BINARY_ARDUINO_CLI) \
