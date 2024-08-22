@@ -65,6 +65,7 @@ upload: # upload binary artifact using arduino-cli [Usage: `make upload`]
 			--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
 			--input-dir "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
+			--port "$(PORT_ARDUINO_CLI)" \
 			--profile "$(ARDUINO_SKETCH_PROFILE)" \
 			--verify \
 	;
@@ -73,8 +74,10 @@ upload: # upload binary artifact using arduino-cli [Usage: `make upload`]
 .SILENT .PHONY: monitor
 monitor: # monitor binary output using arduino-cli [Usage: `make monitor`]
 	$(call print_arg,"baudrate",$(ARDUINO_CLI_MONITOR_BAUDRATE))
+	$(call print_arg,"port",$(PORT_ARDUINO_CLI))
 
 	echo
+	sleep 3
 
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_monitor/
 	$(BINARY_ARDUINO_CLI) \
@@ -82,6 +85,7 @@ monitor: # monitor binary output using arduino-cli [Usage: `make monitor`]
 			--config "baudrate=$(ARDUINO_CLI_MONITOR_BAUDRATE)" \
 			--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
+			--port "$(PORT_ARDUINO_CLI)" \
 			--timestamp \
 	;
 
