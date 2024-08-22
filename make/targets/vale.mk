@@ -5,8 +5,8 @@ CONFIG_VALE ?= ../tooling/.vale.ini
 VALE_PATH   ?= *.md
 
 
-.SILENT .PHONY: vale
-vale: # lint prose with Vale [Usage: `make vale`]
+.SILENT .PHONY: lint-vale
+lint-vale: # lint prose using vale [Usage: `make lint-vale`]
 	$(BINARY_VALE) \
 		--config=$(CONFIG_VALE) \
 		$(VALE_PATH) \
