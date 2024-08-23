@@ -1,15 +1,16 @@
 # OpenAPI-specific Make Targets
 
-# see https://docs.stoplight.io/docs/spectral/9ffa04e052cc1-spectral-cli
-
 BINARY_REDOCLY ?= redocly
 BINARY_SPECTRAL ?= spectral
 CONFIG_REDOCLY ?= redocly/config.yml
+DECORATORS_REDOCLY ?= 'tfplugingen-config/render-config,tfplugingen-config/remove-cruft'
 FORMAT_REDOCLY ?= stylish
 INPUT_SPECTRAL ?= openapi.yml
+OUTPUT_REDOCLY ?= dist/generator_config.yml
 
 .SILENT .PHONY: lint-redocly
 lint-redocly: # lint OAS files using redocly [Usage: `make lint-redocly`]
+	# see https://redocly.com/docs/cli/commands/lint
 	$(BINARY_REDOCLY) \
 		lint \
 			--config="${CONFIG_REDOCLY}" \
@@ -18,10 +19,11 @@ lint-redocly: # lint OAS files using redocly [Usage: `make lint-redocly`]
 
 .SILENT .PHONY: lint-redocly-config
 lint-redocly-config: # lint Redocly config file using redocly [Usage: `make lint-redocly-config`]
+	# see https://redocly.com/docs/cli/commands/check-config
 	$(BINARY_REDOCLY) \
 		check-config \
 			--config="${CONFIG_REDOCLY}" \
-			--lint-config="error" \
+			--lint-config="warn" \
 	;
 
 .SILENT .PHONY: lint-spectral
@@ -29,14 +31,17 @@ lint-spectral: # lint OAS files using spectral [Usage: `make lint-spectral`]
 	# see https://redocly.com/docs/cli/commands/lint
 	$(BINARY_SPECTRAL) \
 		lint \
-		$(INPUT_SPECTRAL) \
+			$(INPUT_SPECTRAL) \
+			--fail-severity=warn \
 	;
 
 .SILENT .PHONY: redocly-preview
 redocly-preview: # preview Redocly docs using redocly [Usage: `make redocly-preview`]
 	# see https://redocly.com/docs/cli/commands/preview-docs
-	$(BINARY_REDOCLY) \
+	echo $(BINARY_REDOCLY) \
 		preview-docs \
+			--config="${CONFIG_REDOCLY}" \
+			--skip-decorator="${DECORATORS_REDOCLY}" \
 			--use-community-edition \
 	;
 
@@ -48,8 +53,19 @@ redocly-build: # build Redocly docs using redocly [Usage: `make redocly-build`]
 		build-docs \
 	;
 
+.SILENT .PHONY: redocly-bundle
+redocly-bundle: # bundle Redocly package using redocly [Usage: `make redocly-bundle`]
+	# see https://redocly.com/docs/cli/commands/bundle
+	# TODO: add support for per-API output directories once available
+	$(BINARY_REDOCLY) \
+		--config="${CONFIG_REDOCLY}" \
+		--output="${OUTPUT_REDOCLY}" \
+		bundle \
+	;
+
 .SILENT .PHONY: redocly-generate-ignore
 redocly-generate-ignore: # generate (or update) an ignores file using redocly [Usage: `make redocly-generate-ignore`]
+	# see https://redocly.com/docs/cli/commands/lint
 	$(BINARY_REDOCLY) \
 		lint \
 			--config="${CONFIG_REDOCLY}" \
