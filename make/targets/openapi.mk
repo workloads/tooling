@@ -6,7 +6,8 @@ CONFIG_REDOCLY ?= redocly/config.yml
 DECORATORS_REDOCLY ?= 'tfplugingen-config/render-config,tfplugingen-config/remove-cruft'
 FORMAT_REDOCLY ?= stylish
 INPUT_SPECTRAL ?= openapi.yml
-OUTPUT_REDOCLY ?= dist/generator_config.yml
+OUTPUT_REDOCLY_HTML ?= dist/docs/index.html
+OUTPUT_REDOCLY_TERRAFORM ?= dist/generator_config.yml
 
 .SILENT .PHONY: lint-redocly
 lint-redocly: # lint OAS files using redocly [Usage: `make lint-redocly`]
@@ -38,7 +39,7 @@ lint-spectral: # lint OAS files using spectral [Usage: `make lint-spectral`]
 .SILENT .PHONY: redocly-preview
 redocly-preview: # preview Redocly docs using redocly [Usage: `make redocly-preview`]
 	# see https://redocly.com/docs/cli/commands/preview-docs
-	echo $(BINARY_REDOCLY) \
+	$(BINARY_REDOCLY) \
 		preview-docs \
 			--config="${CONFIG_REDOCLY}" \
 			--skip-decorator="${DECORATORS_REDOCLY}" \
@@ -51,6 +52,9 @@ redocly-build: # build Redocly docs using redocly [Usage: `make redocly-build`]
 	# TODO: add support for per-API output directories once available
 	$(BINARY_REDOCLY) \
 		build-docs \
+			--config="${CONFIG_REDOCLY}" \
+			--disableGoogleFont \
+			--output="${OUTPUT_REDOCLY_HTML}" \
 	;
 
 .SILENT .PHONY: redocly-bundle
@@ -59,7 +63,7 @@ redocly-bundle: # bundle Redocly package using redocly [Usage: `make redocly-bun
 	# TODO: add support for per-API output directories once available
 	$(BINARY_REDOCLY) \
 		--config="${CONFIG_REDOCLY}" \
-		--output="${OUTPUT_REDOCLY}" \
+		--output="${OUTPUT_REDOCLY_TERRAFORM}" \
 		bundle \
 	;
 
