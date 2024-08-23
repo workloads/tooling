@@ -4,7 +4,7 @@
 
 BINARY_REDOCLY ?= redocly
 BINARY_SPECTRAL ?= spectral
-CONFIG_REDOCLY ?= .redocly.yml
+CONFIG_REDOCLY ?= redocly/config.yml
 FORMAT_REDOCLY ?= stylish
 INPUT_SPECTRAL ?= openapi.yml
 
@@ -21,7 +21,7 @@ lint-redocly-config: # lint Redocly config file using redocly [Usage: `make lint
 	$(BINARY_REDOCLY) \
 		check-config \
 			--config="${CONFIG_REDOCLY}" \
-			--lint-config="warn" \
+			--lint-config="error" \
 	;
 
 .SILENT .PHONY: lint-spectral
@@ -46,4 +46,13 @@ redocly-build: # build Redocly docs using redocly [Usage: `make redocly-build`]
 	# TODO: add support for per-API output directories once available
 	$(BINARY_REDOCLY) \
 		build-docs \
+	;
+
+.SILENT .PHONY: redocly-generate-ignore
+redocly-generate-ignore: # generate (or update) an ignores file using redocly [Usage: `make redocly-generate-ignore`]
+	$(BINARY_REDOCLY) \
+		lint \
+			--config="${CONFIG_REDOCLY}" \
+			--format="${FORMAT_REDOCLY}" \
+			--generate-ignore-file \
 	;
