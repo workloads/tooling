@@ -1,5 +1,6 @@
 # Packer-specific Make Targets
 
+
 .SILENT .PHONY: _link_vars
 _link_vars: # create a symlink to the shared variables file for a new builder [Usage: `make _link_vars builder=<builder>`]
 	$(if $(builder),,$(call missing_argument,builder=<builder>))

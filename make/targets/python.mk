@@ -1,5 +1,6 @@
 include ../tooling/make/functions/python.mk
 
+
 .SILENT .PHONY: deps
 deps: # install Python dependencies using pip [Usage: `make deps`]
 	$(call pip_install,$(CONFIG_PIP_REQS))
